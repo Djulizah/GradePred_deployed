@@ -4,4 +4,11 @@ Education has vital and increasing importance almost for all countries in order 
 
 > The data was collected from the Faculty of Engineering and Faculty of Educational Sciences students in 2019. The purpose is to predict students' end-of-term performances using ML techniques.
 
-## 
+## Code Explanatory
+
+``` python
+from flask import Flask, render_template, request, redirect
+import numpy as np 
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+```
