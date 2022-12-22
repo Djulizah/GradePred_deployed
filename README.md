@@ -5,10 +5,49 @@ Education has vital and increasing importance almost for all countries in order 
 > The data was collected from the Faculty of Engineering and Faculty of Educational Sciences students in 2019. The purpose is to predict students' end-of-term performances using ML techniques.
 
 ## Code Explanatory
+This is how to make the models and prediction
 
 ``` python
 from flask import Flask, render_template, request, redirect
 import numpy as np 
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
+```
+
+There are a total of 31 column, in this **App** we'll use 7 only.
+``` pyhton
+age = request.form['age']
+sex = request.form['sex']
+graduate = request.form['graduate']
+scholarship = request.form['scholarship']
+artsport = request.form['artsport']
+hours = request.form['hours']
+attend = request.form['attend']
+gpa = request.form['gpa']
+```
+
+Machine Learning part
+``` pyhton
+dataset = pd.read_csv("csv/DATA.csv", delimiter=";")
+X = dataset[['1', '2', '3', '4', '6', '17', '22','29']].values
+y =  dataset['GRADE'].values       
+
+from sklearn.model_selection import train_test_split
+X_trainset, X_testset, y_trainset, y_testset = train_test_split(X, y, test_size=0.2, random_state=3)
+```
+
+Model Devition Tree
+``` pyhton
+drugTree = DecisionTreeClassifier(criterion="gini", max_depth = 10)
+drugTree.fit(X_trainset, y_trainset)
+```
+
+making the prediction
+``` pyhton
+x_new = np.array((age, sex, graduate, scholarship, artsport, hours, attend, gpa))
+x_new = np.reshape(x_new, (1, -1))
+
+predTree = drugTree.predict(x_new)
+
+output = predTree[0] # prediction output would be stored here
 ```
