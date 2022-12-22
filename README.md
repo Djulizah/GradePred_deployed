@@ -5,16 +5,16 @@ Education has vital and increasing importance almost for all countries in order 
 > The data was collected from the Faculty of Engineering and Faculty of Educational Sciences students in 2019. The purpose is to predict students' end-of-term performances using ML techniques.
 
 ## Code Explanatory
-This is how to make the models and prediction
+This is how to make the models and prediction. In this project we'll be using **Flask** as our bridge to connect python source and the web app. In `App.py` file started of by importing all necessary package for our project.
 
 ``` python
 from flask import Flask, render_template, request, redirect
-import numpy as np 
-import pandas as pd
-from sklearn.tree import DecisionTreeClassifier
+import numpy as np # math function for python
+import pandas as pd # machine learning library
+from sklearn.tree import DecisionTreeClassifier 
 ```
 
-There are a total of 31 column, in this **App** we'll use 7 only.
+There are a total of 31 data(column), in this **App** we'll only use 7, which will be our input for predicting the output(grade).
 ``` pyhton
 age = request.form['age']
 sex = request.form['sex']
@@ -26,7 +26,7 @@ attend = request.form['attend']
 gpa = request.form['gpa']
 ```
 
-Machine Learning part
+This is the machine learning part where we started of by reading the data and deciding the data(columns) to use for prediction. The model for this project are all already turned to numbers and so we'll adapt to it.
 ``` pyhton
 dataset = pd.read_csv("csv/DATA.csv", delimiter=";")
 X = dataset[['1', '2', '3', '4', '6', '17', '22','29']].values
@@ -42,7 +42,7 @@ drugTree = DecisionTreeClassifier(criterion="gini", max_depth = 10)
 drugTree.fit(X_trainset, y_trainset)
 ```
 
-making the prediction
+We've listed the data for prediction input and here we'll take the corresponding data to process it.
 ``` pyhton
 x_new = np.array((age, sex, graduate, scholarship, artsport, hours, attend, gpa))
 x_new = np.reshape(x_new, (1, -1))
